@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Engine | LeafSense AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#717976",
+                    "surface-dim": "#d9dad9",
+                    "tertiary-fixed": "#ffe088",
+                    "secondary-fixed-dim": "#b0ceb2",
+                    "surface-container-low": "#f3f4f3",
+                    "on-primary-container": "#83a69c",
+                    "inverse-on-surface": "#f0f1f0",
+                    "secondary-fixed": "#cceace",
+                    "on-secondary-fixed-variant": "#334d38",
+                    "primary": "#01261f",
+                    "surface-container": "#edeeed",
+                    "on-tertiary-container": "#4e3d00",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#43655c",
+                    "secondary-container": "#c9e8cb",
+                    "on-primary-fixed": "#00201a",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e1e3e2",
+                    "surface-bright": "#f9f9f8",
+                    "primary-container": "#1a3c34",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c1c8c4",
+                    "primary-fixed-dim": "#aacec3",
+                    "error": "#ba1a1a",
+                    "secondary": "#4a654e",
+                    "inverse-primary": "#aacec3",
+                    "on-surface-variant": "#414846",
+                    "on-secondary-container": "#4e6952",
+                    "surface-container-high": "#e7e8e7",
+                    "on-tertiary-fixed": "#241a00",
+                    "surface": "#f9f9f8",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "on-background": "#191c1c",
+                    "primary-fixed": "#c5eadf",
+                    "on-surface": "#191c1c",
+                    "error-container": "#ffdad6",
+                    "background": "#f9f9f8",
+                    "inverse-surface": "#2e3131",
+                    "on-secondary-fixed": "#07200f",
+                    "tertiary": "#735c00",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#cba72f",
+                    "on-primary-fixed-variant": "#2b4d44",
+                    "surface-variant": "#e1e3e2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(249, 249, 248, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-emerald-50/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto">
+<div class="text-2xl font-serif font-bold text-emerald-950 dark:text-emerald-50">LeafSense AI</div>
+<nav class="hidden md:flex items-center gap-8 font-serif italic tracking-tight">
+
+  <a href="/" 
+     class="text-emerald-800/60 dark:text-emerald-400/60 hover:text-emerald-950 dark:hover:text-emerald-50 transition-colors">
+     Home
+  </a>
+
+  <a href="/index" 
+     class="text-emerald-900 dark:text-emerald-100 border-b-2 border-emerald-900 dark:border-emerald-100 pb-1 hover:text-emerald-950 transition-colors">
+     Diagnostics
+  </a>
+
+  <a href="/market" 
+     class="text-emerald-800/60 dark:text-emerald-400/60 hover:text-emerald-950 dark:hover:text-emerald-50 transition-colors">
+     Supplements
+  </a>
+
+</nav>
+<div class="flex items-center gap-6">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-outline text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-32 placeholder:text-outline-variant" placeholder="Search garden..." type="text"/>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-emerald-900 cursor-pointer scale-95 duration-300 hover:scale-100">notifications</span>
+<span class="material-symbols-outlined text-emerald-900 cursor-pointer scale-95 duration-300 hover:scale-100">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-20 px-6 max-w-screen-2xl mx-auto w-full">
+<!-- Hero Heading Section -->
+<div class="mb-16 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+<div class="md:col-span-8">
+<span class="text-tertiary font-label font-medium tracking-[0.2em] uppercase text-xs mb-4 block">Engine / Diagnostics v4.2</span>
+<h1 class="font-headline text-6xl md:text-7xl font-bold tracking-tight text-primary leading-none">
+                Plant Analysis <br/><span class="italic font-normal text-on-surface-variant">Laboratory</span>
+</h1>
+</div>
+<div class="md:col-span-4 pb-2">
+<p class="text-on-surface-variant leading-relaxed border-l-2 border-outline-variant pl-6 italic">
+                Our neural network processes spectral data and morphological patterns to identify over 45,000 botanical species and pathologies.
+            </p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left: Instructions -->
+<div class="lg:col-span-1 space-y-8">
+<div class="bg-surface-container-low p-10 rounded-xl relative overflow-hidden group">
+<h2 class="font-headline text-2xl mb-8 text-primary">How to Capture the Perfect Sample</h2>
+<ul class="space-y-8">
+<li class="flex gap-4">
+<span class="font-headline text-3xl text-outline-variant italic">01</span>
+<div>
+<h4 class="font-bold text-on-surface mb-1">Diffuse Lighting</h4>
+<p class="text-sm text-on-surface-variant">Avoid harsh direct sunlight. Overcast days or early morning light captures the truest leaf textures.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="font-headline text-3xl text-outline-variant italic">02</span>
+<div>
+<h4 class="font-bold text-on-surface mb-1">Macro Focus</h4>
+<p class="text-sm text-on-surface-variant">Get within 15cm of the affected area. Ensure the focus is sharp on the leaf venation or fungal spots.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="font-headline text-3xl text-outline-variant italic">03</span>
+<div>
+<h4 class="font-bold text-on-surface mb-1">Multiple Angles</h4>
+<p class="text-sm text-on-surface-variant">Upload both the top (adaxial) and bottom (abaxial) surfaces of the leaf for complete diagnostic depth.</p>
+</div>
+</li>
+</ul>
+<!-- Decorative element -->
+<div class="absolute -bottom-10 -right-10 opacity-5 group-hover:rotate-12 transition-transform duration-700">
+<span class="material-symbols-outlined text-[120px]">psychology</span>
+</div>
+</div>
+<!-- Live Feedback Panel -->
+<div class="bg-primary-container text-on-primary-container p-10 rounded-xl">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-label font-bold text-primary-fixed tracking-widest uppercase text-xs">Live Engine Feedback</h3>
+<div class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></div>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-4 opacity-100">
+<span class="material-symbols-outlined text-primary-fixed">check_circle</span>
+<span class="text-sm font-medium">Neural core initialized</span>
+</div>
+<div class="flex items-center gap-4 opacity-40">
+<span class="material-symbols-outlined">hourglass_empty</span>
+<span class="text-sm">Analyzing Environmental Context</span>
+</div>
+<div class="flex items-center gap-4 opacity-20">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Pathogen Scanning</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Central Diagnostic Card -->
+<div class="lg:col-span-2 flex flex-col gap-8">
+<div class="flex-grow bg-surface-container-lowest rounded-xl border-b-4 border-primary/10 flex flex-col items-center justify-center p-12 text-center group relative overflow-hidden min-h-[500px]">
+<!-- Background texture -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+<img class="w-full h-full object-cover" data-alt="microscopic view of plant cells and fiber structure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHl-RW4lpU463R5hwuKaPMgbd0Xb86KWrZeqpyJ5gktZDvKGxikkPZdZea1mjgyYNVRDhfjFJXF0uJycxNzcYls0KDg_ZlfP4beROU7PB82vV5jHUzkz5zm48x4t1Yy1E13QG1-YuWsUMwXSkwouJgXW7EakLkphuLrExhg4_z1XOmFJXVSiqJ7qvaywIUERxEFqcERm7kgxV-sfrdnGlFrQJSCBki5c8XxsyMPycEIIKP-54xxZ-vwLk7edw4iQhd1v4yBcoYW_W9"/>
+</div>
+<div class="relative z-10 space-y-6 max-w-md">
+<div class="w-24 h-24 bg-surface-container-high rounded-full flex items-center justify-center mx-auto transition-transform group-hover:scale-110 duration-500">
+<span class="material-symbols-outlined text-primary text-4xl" data-weight="fill">upload_file</span>
+</div>
+<div>
+<h2 class="font-headline text-4xl text-primary mb-2">Upload Specimen</h2>
+<p class="text-on-surface-variant font-body">Drag and drop high-resolution botanical imagery or select a file from your archives.</p>
+</div>
+<form action="/submit" method="POST" enctype="multipart/form-data" class="flex flex-col gap-4">
+<input type="file" id="actual-btn" hidden name="image" accept="image/*" />
+<label for="actual-btn" class="bg-primary text-on-primary px-10 py-4 rounded-md font-medium flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined">add_photo_alternate</span>
+              Browse Files
+            </label>
+<span id="file-chosen" class="text-xs font-label text-outline uppercase tracking-widest">No file chosen</span>
+<span class="text-xs font-label text-outline uppercase tracking-widest">Supported formats: JPG, JPEG, PNG</span>
+</form>
+</div>
+<!-- Overlay detail -->
+<div class="absolute top-8 left-8">
+<div class="flex items-center gap-2 glass-panel px-4 py-2 rounded-full border border-outline-variant/15">
+<span class="material-symbols-outlined text-tertiary text-sm" data-weight="fill">verified</span>
+<span class="text-[10px] font-label font-bold uppercase tracking-tighter text-on-surface">Precision Scan v4</span>
+</div>
+</div>
+</div>
+<!-- Recent Scans Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-high/50 p-8 rounded-xl flex items-start gap-6">
+<img class="w-20 h-20 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="extreme close up of a healthy green leaf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9aE5XBR2BzB6p9YzBdAGI27cif2kGnQQrZgAc-pCVSoj4G9ixIOotevVABKEfY4JtZUUJBp0BO7w4XD7nROdly5l9QY1T_GwqwWT2WNPSZq0R8sXn9op1IFRg1qKJH0wciSqnqv2J_4ksAkfS1ERLaWpHAxXfnEV9mG0lABb6ESCWwaR5k3gEFwkAWdDZoVFEHLwmP9pcBU5i93HmjQwpP4eJxuLJdPO184uyan0cF1O4Wo1WYB5FVOF6bFQks-L441yjR5oI_oje"/>
+<div>
+<h4 class="font-headline text-xl text-primary mb-1">Recent: Monstera</h4>
+<p class="text-xs text-on-surface-variant">Last scanned 2h ago. <br/><span class="text-primary-fixed-dim font-bold">Status: Healthy</span></p>
+</div>
+</div>
+<div class="bg-surface-container-high/50 p-8 rounded-xl flex items-start gap-6">
+<img class="w-20 h-20 rounded-lg object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="close up of a succulent with a minor brown fungal spot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABj6oVyKslN1u5cAzeDdoXOfEbs4gEaKmIcE_l1zZt5lB-UMF9ilOtbEwHAspt0XlyIVVbuO1GbRWG5Z9naCVd5B8TRXI7Q3Kz_xVePJI8qbXkTPZE2fPT5tY_1CZW49mhtUXpmvtja25MIzdetx3EGoGu-ObFI89uXcG_sOL337kqQl5yBhF8ylQM3C7H0ydQkmRsx_pXEL9vY7Ntr6t_Zq5JvuwsiMP15htyNzxBGCnAwYnt3hqbFZsd_7W41ck5dMIrMqyb0UXQ"/>
+<div>
+<h4 class="font-headline text-xl text-primary mb-1">Recent: Aloe V.</h4>
+<p class="text-xs text-on-surface-variant">Last scanned 5h ago. <br/><span class="text-tertiary font-bold">Status: Fungal Warning</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+  const actualBtn = document.getElementById('actual-btn');
+  const fileChosen = document.getElementById('file-chosen');
+
+  actualBtn.addEventListener('change', function () {
+    if (this.files && this.files.length > 0) {
+      fileChosen.textContent = this.files[0].name;
+      this.form.submit();
+    }
+  });
+</script>
+<!-- Footer -->
+<footer class="w-full py-2 mt-auto bg-emerald-100 text-emerald-900">
+<div class="flex flex-col items-center gap-2 px-12 max-w-screen-2xl mx-auto w-full">
+<div class="font-serif text-lg text-emerald-900 dark:text-emerald-50">LeafSense AI</div>
+<div class="flex flex-wrap justify-center gap-8 font-sans text-sm tracking-wide">
+</div>
+<div class="text-xs opacity-60">© LeafSense AI. Cultivating intelligence.</div>
+</div>
+</footer>
+</body></html>

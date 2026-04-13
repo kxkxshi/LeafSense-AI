@@ -62,7 +62,7 @@ LeafSense-AI/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/LeafSense-AI.git
+git clone https://github.com/kxkxshi/LeafSense-AI.git
 
 # Navigate to project directory
 cd LeafSense-AI

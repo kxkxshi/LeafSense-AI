@@ -15,7 +15,6 @@ The goal of this project is to assist farmers and agricultural professionals in 
 ## 🧠 Features
 
 * 🌱 Detects plant diseases from leaf images
-* 🧪 Classifies into **39 categories**
 * ⚡ Fast prediction using trained CNN model
 * 🌐 User-friendly web interface (Flask)
 * 🛒 Integrated supplements/fertilizer suggestion module

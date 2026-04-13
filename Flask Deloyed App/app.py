@@ -1,4 +1,6 @@
+```python
 import os
+import gdown
 from flask import Flask, redirect, render_template, request, url_for
 from PIL import Image
 import torchvision.transforms.functional as TF
@@ -14,14 +16,23 @@ disease_info = pd.read_csv('disease_info.csv', encoding='cp1252')
 supplement_info = pd.read_csv('supplement_info.csv', encoding='cp1252')
 
 # =========================
+# DOWNLOAD MODEL (IMPORTANT FOR RENDER)
+# =========================
+MODEL_PATH = "plant_disease_model_1_latest.pt"
+
+if not os.path.exists(MODEL_PATH):
+    url = "https://drive.google.com/uc?id=YOUR_FILE_ID"  # 🔥 replace with your actual file ID
+    gdown.download(url, MODEL_PATH, quiet=False)
+
+# =========================
 # LOAD MODEL
 # =========================
 model = CNN.CNN(39)
-model.load_state_dict(torch.load("plant_disease_model_1_latest.pt"))
+model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
 model.eval()
 
 # =========================
-# IMAGE FIX FUNCTION 🔥
+# IMAGE FIX FUNCTION
 # =========================
 def fix_image(name, url):
     if pd.isna(url) or str(url).strip() == "":
@@ -95,7 +106,7 @@ def submit():
     description = disease_info['description'][pred]
     prevent = disease_info['Possible Steps'][pred]
 
-    # 🔥 SHOW USER UPLOADED IMAGE (BEST UX)
+    # SHOW USER UPLOADED IMAGE
     image_url = url_for('static', filename=f'uploads/{filename}')
 
     supplement_name = supplement_info['supplement name'][pred]
@@ -126,7 +137,6 @@ def market():
     supplement_names = list(supplement_info['supplement name'])
     raw_images = list(supplement_info['supplement image'])
 
-    # 🔥 FIX ALL IMAGES
     fixed_images = [
         fix_image(name, img)
         for name, img in zip(supplement_names, raw_images)
@@ -145,3 +155,4 @@ def market():
 # =========================
 if __name__ == '__main__':
     app.run(debug=True)
+```

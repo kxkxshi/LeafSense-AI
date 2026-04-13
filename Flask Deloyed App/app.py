@@ -21,7 +21,7 @@ supplement_info = pd.read_csv('supplement_info.csv', encoding='cp1252')
 MODEL_PATH = "plant_disease_model_1_latest.pt"
 
 if not os.path.exists(MODEL_PATH):
-    url = "https://drive.google.com/uc?id=YOUR_FILE_ID"  # 🔥 replace with your actual file ID
+    url = "https://drive.google.com/uc?id=1PAV9LYD08sKeQ01ndJMNdQSuHPREP8ss"
     gdown.download(url, MODEL_PATH, quiet=False)
 
 # =========================

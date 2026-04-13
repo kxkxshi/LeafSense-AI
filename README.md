@@ -105,7 +105,7 @@ Flask Deployed App/
 ### 🔹 Run the Application
 
 ```bash
-cd Flask Deployed App
+cd "Flask Deployed App"
 python app.py
 ```
 

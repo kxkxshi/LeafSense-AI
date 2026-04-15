@@ -25,9 +25,18 @@ supplement_info = pd.read_csv(os.path.join(BASE_DIR, 'supplement_info.csv'), enc
 MODEL_PATH = os.path.join(BASE_DIR, "plant_disease_model_1_latest.pt")
 
 if not os.path.exists(MODEL_PATH):
+    print("Downloading model...")
     url = "https://drive.google.com/uc?id=1PAV9LYD08sKeQ01ndJMNdQSuHPREP8ss"
-    gdown.download(url, MODEL_PATH, quiet=False)
+    gdown.download(url, MODEL_PATH, quiet=False, fuzzy=True)
 
+# 🔥 Ensure file exists before loading
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError("Model file not found after download!")
+
+print("Loading model...")
+model = CNN.CNN(39)
+model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
+model.eval()
 # =========================
 # LOAD MODEL
 # =========================

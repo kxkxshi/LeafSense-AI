@@ -1,4 +1,3 @@
-```python
 import os
 import gdown
 from flask import Flask, redirect, render_template, request, url_for
@@ -158,4 +157,3 @@ def market():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
-```

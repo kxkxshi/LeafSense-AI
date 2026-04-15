@@ -1,23 +1,29 @@
+```python
 import os
 import gdown
 from flask import Flask, redirect, render_template, request, url_for
 from PIL import Image
 import torchvision.transforms.functional as TF
-import CNN
+from Flask_App import CNN   # ✅ FIXED IMPORT
 import numpy as np
 import torch
 import pandas as pd
 
 # =========================
-# LOAD DATA
+# BASE DIRECTORY (IMPORTANT)
 # =========================
-disease_info = pd.read_csv('disease_info.csv', encoding='cp1252')
-supplement_info = pd.read_csv('supplement_info.csv', encoding='cp1252')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# =========================
+# LOAD DATA (FIXED PATH)
+# =========================
+disease_info = pd.read_csv(os.path.join(BASE_DIR, 'disease_info.csv'), encoding='cp1252')
+supplement_info = pd.read_csv(os.path.join(BASE_DIR, 'supplement_info.csv'), encoding='cp1252')
 
 # =========================
 # DOWNLOAD MODEL (IMPORTANT FOR RENDER)
 # =========================
-MODEL_PATH = "plant_disease_model_1_latest.pt"
+MODEL_PATH = os.path.join(BASE_DIR, "plant_disease_model_1_latest.pt")
 
 if not os.path.exists(MODEL_PATH):
     url = "https://drive.google.com/uc?id=1PAV9LYD08sKeQ01ndJMNdQSuHPREP8ss"
@@ -61,7 +67,7 @@ def prediction(image_path):
 # =========================
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # =========================
@@ -100,12 +106,10 @@ def submit():
 
     pred = prediction(file_path)
 
-    # DATA
     title = disease_info['disease_name'][pred]
     description = disease_info['description'][pred]
     prevent = disease_info['Possible Steps'][pred]
 
-    # SHOW USER UPLOADED IMAGE
     image_url = url_for('static', filename=f'uploads/{filename}')
 
     supplement_name = supplement_info['supplement name'][pred]
@@ -132,7 +136,6 @@ def submit():
 # =========================
 @app.route('/market')
 def market():
-
     supplement_names = list(supplement_info['supplement name'])
     raw_images = list(supplement_info['supplement image'])
 
@@ -155,4 +158,4 @@ def market():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
-
+```

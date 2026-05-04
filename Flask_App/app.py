@@ -1,71 +1,37 @@
 import os
-import gdown
 from flask import Flask, redirect, render_template, request, url_for
 from PIL import Image
 import torchvision.transforms.functional as TF
-from Flask_App import CNN   # ✅ FIXED IMPORT
+from Flask_App import CNN
 import numpy as np
 import torch
 import pandas as pd
+from huggingface_hub import hf_hub_download
 
 # =========================
-# BASE DIRECTORY (IMPORTANT)
+# BASE DIRECTORY
 # =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # =========================
-# LOAD DATA (FIXED PATH)
+# LOAD DATA
 # =========================
 disease_info = pd.read_csv(os.path.join(BASE_DIR, 'disease_info.csv'), encoding='cp1252')
 supplement_info = pd.read_csv(os.path.join(BASE_DIR, 'supplement_info.csv'), encoding='cp1252')
 
 # =========================
-# DOWNLOAD MODEL (ROBUST)
+# LOAD MODEL FROM HUGGING FACE
 # =========================
-MODEL_PATH = os.path.join(BASE_DIR, "plant_disease_model_1_latest.pt")
-FILE_ID = "1PAV9LYD08sKeQ01ndJMNdQSuHPREP8ss"
+print("Downloading/loading model from Hugging Face...")
 
-def download_model():
-    import gdown
-
-    url = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
-
-    print("Downloading model...")
-    try:
-        gdown.download(url, MODEL_PATH, quiet=False)
-    except Exception as e:
-        print("Download failed:", e)
-
-# Download if not exists
-if not os.path.exists(MODEL_PATH):
-    download_model()
-
-# 🔥 Validate file
-if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 1000000:
-    raise RuntimeError("Model download failed or file is corrupted!")
-
-# =========================
-# LOAD MODEL (ONLY ONCE)
-# =========================
-print("Loading model...")
-model = CNN.CNN(39)
-model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
-model.eval()
-
-
-# 🔥 Ensure file exists before loading
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError("Model file not found after download!")
+model_path = hf_hub_download(
+    repo_id="Pradeep-Dev/LeafSense-AI",
+    filename="plant_disease_model_1_latest.pt"
+)
 
 print("Loading model...")
 model = CNN.CNN(39)
-model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
-model.eval()
-# =========================
-# LOAD MODEL
-# =========================
-model = CNN.CNN(39)
-model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 model.eval()
 
 # =========================
@@ -81,14 +47,13 @@ def fix_image(name, url):
 # PREDICTION FUNCTION
 # =========================
 def prediction(image_path):
-    image = Image.open(image_path)
-    image = image.convert('RGB')
-    image = image.resize((224, 224))
+    image = Image.open(image_path).convert('RGB').resize((224, 224))
 
-    input_data = TF.to_tensor(image)
-    input_data = input_data.view((-1, 3, 224, 224))
+    input_data = TF.to_tensor(image).view((-1, 3, 224, 224))
 
-    output = model(input_data)
+    with torch.no_grad():
+        output = model(input_data)
+
     output = output.detach().numpy()
     index = np.argmax(output)
 
@@ -123,7 +88,7 @@ def mobile_device_detected_page():
     return render_template('mobile-device.html')
 
 # =========================
-# SUBMIT (AI RESULT)
+# SUBMIT
 # =========================
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -164,7 +129,7 @@ def submit():
     )
 
 # =========================
-# MARKET (SUPPLEMENTS PAGE)
+# MARKET
 # =========================
 @app.route('/market')
 def market():
@@ -185,7 +150,7 @@ def market():
     )
 
 # =========================
-# RUN APP
+# RUN
 # =========================
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))

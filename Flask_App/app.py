@@ -3,7 +3,7 @@ import gdown
 from flask import Flask, redirect, render_template, request, url_for
 from PIL import Image
 import torchvision.transforms.functional as TF
-import CNN  
+from Flask_App import CNN   # ✅ FIXED IMPORT
 import numpy as np
 import torch
 import pandas as pd
@@ -83,10 +83,6 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # =========================
 
 @app.route('/')
-def root():
-    return redirect(url_for('login'))
-
-@app.route('/home')
 def home_page():
     return render_template('home.html')
 
@@ -101,21 +97,6 @@ def ai_engine_page():
 @app.route('/mobile-device')
 def mobile_device_detected_page():
     return render_template('mobile-device.html')
-
-# =========================
-# AUTHENTICATION
-# =========================
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        # Placeholder for authentication logic
-        return redirect(url_for('home_page'))
-    return render_template('login.html')
-
-@app.route('/signup', methods=['POST'])
-def signup():
-    # Placeholder for registration logic
-    return redirect(url_for('home_page'))
 
 # =========================
 # SUBMIT (AI RESULT)

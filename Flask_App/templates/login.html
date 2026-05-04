@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login | LeafSense AI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#717976",
+                        "surface-dim": "#d9dad9",
+                        "tertiary-fixed": "#ffe088",
+                        "secondary-fixed-dim": "#b0ceb2",
+                        "surface-container-low": "#f3f4f3",
+                        "on-primary-container": "#83a69c",
+                        "inverse-on-surface": "#f0f1f0",
+                        "secondary-fixed": "#cceace",
+                        "on-secondary-fixed-variant": "#334d38",
+                        "primary": "#01261f",
+                        "surface-container": "#edeeed",
+                        "on-tertiary-container": "#4e3d00",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#43655c",
+                        "secondary-container": "#c9e8cb",
+                        "on-primary-fixed": "#00201a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e2",
+                        "surface-bright": "#f9f9f8",
+                        "primary-container": "#1a3c34",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c1c8c4",
+                        "primary-fixed-dim": "#aacec3",
+                        "error": "#ba1a1a",
+                        "secondary": "#4a654e",
+                        "inverse-primary": "#aacec3",
+                        "on-surface-variant": "#414846",
+                        "on-secondary-container": "#4e6952",
+                        "surface-container-high": "#e7e8e7",
+                        "on-tertiary-fixed": "#241a00",
+                        "surface": "#f9f9f8",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "on-background": "#191c1c",
+                        "primary-fixed": "#c5eadf",
+                        "on-surface": "#191c1c",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9f8",
+                        "inverse-surface": "#2e3131",
+                        "on-secondary-fixed": "#07200f",
+                        "tertiary": "#735c00",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#cba72f",
+                        "on-primary-fixed-variant": "#2b4d44",
+                        "surface-variant": "#e1e3e2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f8;
+            color: #191c1c;
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif', serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .auth-container {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-field {
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-bottom: 2px solid #01261f;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #01261f;
+            color: #01261f;
+            font-weight: 600;
+        }
+
+        .tab-inactive {
+            color: #717976;
+            border-bottom: 2px solid transparent;
+        }
+
+        /* Subtle floating animation for the decorative elements */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface h-screen overflow-hidden flex flex-col">
+
+    <!-- Minimalist Header -->
+    <header class="absolute top-0 w-full z-50 bg-transparent">
+        <div class="flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto">
+            <a href="/"
+                class="text-2xl font-serif font-bold text-emerald-950 hover:opacity-80 transition-opacity">LeafSense
+                AI</a>
+            <a href="/"
+                class="flex items-center gap-2 text-sm font-medium text-emerald-900 hover:text-emerald-700 transition-colors">
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back to Home
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow flex w-full h-full relative">
+        <!-- Left Side: Authentication Form -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-24 relative z-10 bg-surface">
+
+            <div class="w-full max-w-md auth-container" id="auth-box">
+                <!-- Form Header -->
+                <div class="mb-10 text-center">
+                    <span
+                        class="material-symbols-outlined text-primary text-5xl mb-4 animate-float">energy_savings_leaf</span>
+                    <h1 class="font-headline text-4xl font-bold tracking-tight text-primary mb-2" id="form-title">
+                        Welcome Back</h1>
+                    <p class="text-on-surface-variant text-sm font-body" id="form-subtitle">Enter your credentials to
+                        access the engine.</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex mb-8 border-b border-surface-container-high">
+                    <button class="w-1/2 pb-3 text-sm tracking-wide tab-active transition-all" id="tab-login"
+                        onclick="switchTab('login')">
+                        Log In
+                    </button>
+                    <button class="w-1/2 pb-3 text-sm tracking-wide tab-inactive transition-all" id="tab-signup"
+                        onclick="switchTab('signup')">
+                        Create Account
+                    </button>
+                </div>
+
+                <!-- Log In Form -->
+                <form id="login-form" class="space-y-6" action="/login" method="POST">
+                    <div class="space-y-1">
+                        <label
+                            class="text-xs font-label uppercase tracking-widest text-outline-variant font-medium">Email
+                            Address</label>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
+                            <input type="email" name="email"
+                                class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 focus:ring-0 input-field text-on-surface"
+                                placeholder="botanist@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <div class="flex justify-between items-center">
+                            <label
+                                class="text-xs font-label uppercase tracking-widest text-outline-variant font-medium">Password</label>
+                            <a href="#" class="text-xs text-primary font-medium hover:underline">Forgot password?</a>
+                        </div>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">lock</span>
+                            <input type="password" name="password"
+                                class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 focus:ring-0 input-field text-on-surface"
+                                placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary py-4 rounded-xl font-medium tracking-wide shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2">
+                        Access Engine
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </form>
+
+                <!-- Sign Up Form (Initially Hidden) -->
+                <form id="signup-form" class="space-y-6 hidden" action="/signup" method="POST">
+                    <div class="space-y-1">
+                        <label
+                            class="text-xs font-label uppercase tracking-widest text-outline-variant font-medium">Full
+                            Name</label>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">person</span>
+                            <input type="text" name="name"
+                                class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 focus:ring-0 input-field text-on-surface"
+                                placeholder="Dr. Jane Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label
+                            class="text-xs font-label uppercase tracking-widest text-outline-variant font-medium">Email
+                            Address</label>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
+                            <input type="email" name="email"
+                                class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 focus:ring-0 input-field text-on-surface"
+                                placeholder="botanist@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label
+                            class="text-xs font-label uppercase tracking-widest text-outline-variant font-medium">Password</label>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">lock</span>
+                            <input type="password" name="password"
+                                class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 focus:ring-0 input-field text-on-surface"
+                                placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary py-4 rounded-xl font-medium tracking-wide shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2">
+                        Create Account
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+
+        <!-- Right Side: Hero Image -->
+        <div class="hidden lg:block lg:w-1/2 relative h-full overflow-hidden">
+            <img src="{{ url_for('static', filename='login_bg.png') }}" alt="Modern greenhouse interior"
+                class="w-full h-full object-cover absolute inset-0" />
+            <!-- Gradient Overlay for dramatic effect -->
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+
+            <!-- Floating Data Card -->
+            <div class="absolute bottom-16 right-16 glass-panel p-6 rounded-2xl w-80 shadow-2xl border border-white/20">
+                <div class="flex items-center gap-3 mb-4">
+                    <div
+                        class="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.6)]">
+                    </div>
+                    <span class="font-label text-[10px] uppercase tracking-widest text-white/90 font-bold">Network
+                        Status</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-white/80 text-sm">Active Botanists</span>
+                        <span class="font-bold text-white">1,248</span>
+                    </div>
+                    <div class="w-full bg-white/20 h-1 rounded-full overflow-hidden">
+                        <div class="bg-white w-[85%] h-full"></div>
+                    </div>
+                    <div class="flex justify-between items-center pt-1">
+                        <span class="text-white/80 text-sm">Diagnoses Today</span>
+                        <span class="font-bold text-white">45,912</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+            const formTitle = document.getElementById('form-title');
+            const formSubtitle = document.getElementById('form-subtitle');
+            const authBox = document.getElementById('auth-box');
+
+            // Add a slight fade effect
+            authBox.style.opacity = '0';
+
+            setTimeout(() => {
+                if (tab === 'login') {
+                    loginForm.classList.remove('hidden');
+                    signupForm.classList.add('hidden');
+
+                    tabLogin.classList.replace('tab-inactive', 'tab-active');
+                    tabSignup.classList.replace('tab-active', 'tab-inactive');
+
+                    formTitle.textContent = 'Welcome Back';
+                    formSubtitle.textContent = 'Enter your credentials to access the engine.';
+                } else {
+                    signupForm.classList.remove('hidden');
+                    loginForm.classList.add('hidden');
+
+                    tabSignup.classList.replace('tab-inactive', 'tab-active');
+                    tabLogin.classList.replace('tab-active', 'tab-inactive');
+
+                    formTitle.textContent = 'Join LeafSense';
+                    formSubtitle.textContent = 'Create an account to start analyzing plants.';
+                }
+
+                authBox.style.opacity = '1';
+            }, 150);
+        }
+    </script>
+</body>
+
+</html>

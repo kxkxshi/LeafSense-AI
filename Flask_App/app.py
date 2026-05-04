@@ -20,14 +20,38 @@ disease_info = pd.read_csv(os.path.join(BASE_DIR, 'disease_info.csv'), encoding=
 supplement_info = pd.read_csv(os.path.join(BASE_DIR, 'supplement_info.csv'), encoding='cp1252')
 
 # =========================
-# DOWNLOAD MODEL (IMPORTANT FOR RENDER)
+# DOWNLOAD MODEL (ROBUST)
 # =========================
 MODEL_PATH = os.path.join(BASE_DIR, "plant_disease_model_1_latest.pt")
+FILE_ID = "1PAV9LYD08sKeQ01ndJMNdQSuHPREP8ss"
 
-if not os.path.exists(MODEL_PATH):
+def download_model():
+    import gdown
+
+    url = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
+
     print("Downloading model...")
-    url = "https://drive.google.com/uc?id=1PAV9LYD08sKeQ01ndJMNdQSuHPREP8ss"
-    gdown.download(url, MODEL_PATH, quiet=False, fuzzy=True)
+    try:
+        gdown.download(url, MODEL_PATH, quiet=False)
+    except Exception as e:
+        print("Download failed:", e)
+
+# Download if not exists
+if not os.path.exists(MODEL_PATH):
+    download_model()
+
+# 🔥 Validate file
+if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 1000000:
+    raise RuntimeError("Model download failed or file is corrupted!")
+
+# =========================
+# LOAD MODEL (ONLY ONCE)
+# =========================
+print("Loading model...")
+model = CNN.CNN(39)
+model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
+model.eval()
+
 
 # 🔥 Ensure file exists before loading
 if not os.path.exists(MODEL_PATH):

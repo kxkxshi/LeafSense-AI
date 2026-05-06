@@ -64,7 +64,7 @@ class CNN(nn.Module):
 
         # Fully connected
         out = self.dense_layers(out)
-
+ 
         return out
 
 

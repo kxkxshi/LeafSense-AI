@@ -86,8 +86,7 @@ pip install -r requirements.txt
 
 Download the trained model:
 
-👉 https://drive.google.com/drive/folders/1ewJWAiduGuld_9oGSrTuLumg9y62qS6A?usp=share_link
-
+👉 https://huggingface.co/Pradeep-Dev/LeafSense-AI/resolve/main/plant_disease_model_1_latest.pt?download=true
 Place the file:
 
 ```
